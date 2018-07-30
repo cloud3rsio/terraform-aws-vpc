@@ -3,6 +3,6 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "github.com/cloud3rsio/terraform-aws-vpc"
+  source = "cloud3rsio/vpc/aws"
   name   = "simple-example"
 }

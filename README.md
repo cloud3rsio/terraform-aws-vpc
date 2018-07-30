@@ -14,7 +14,7 @@ These types of resources are supported:
 
 ```hcl
 module "vpc" {
-  source = "github.com/cloud3rsio/terraform-aws-vpc"
+  source = "cloud3rsio/vpc/aws"
 
   name = "my-vpc"
   cidr = "10.0.0.0/16"
