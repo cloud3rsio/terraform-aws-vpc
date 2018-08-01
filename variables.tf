@@ -43,3 +43,7 @@ variable "enable_dns_support" {
 variable "map_public_ip_on_launch" {
   default = true
 }
+
+variable "tags" {
+  default = {}
+}

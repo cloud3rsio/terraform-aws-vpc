@@ -6,10 +6,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = "${var.enable_dns_hostnames}"
   enable_dns_support   = "${var.enable_dns_support}"
 
-  tags {
-    Name         = "${var.name}"
-    ModuleSource = "${var.module_source}"
-  }
+  tags = "${merge(var.tags,map("Name", format("%s", var.name)), map("ModuleSource", var.module_source))}"
 }
 
 resource "aws_internet_gateway" "main" {
@@ -17,10 +14,7 @@ resource "aws_internet_gateway" "main" {
 
   vpc_id = "${aws_vpc.main.id}"
 
-  tags {
-    Name         = "${var.name}"
-    ModuleSource = "${var.module_source}"
-  }
+  tags = "${merge(var.tags,map("Name", format("%s", var.name)), map("ModuleSource", var.module_source))}"
 }
 
 resource "aws_route_table" "public" {
@@ -28,10 +22,7 @@ resource "aws_route_table" "public" {
 
   vpc_id = "${aws_vpc.main.id}"
 
-  tags {
-    Name         = "${var.name}-public"
-    ModuleSource = "${var.module_source}"
-  }
+  tags = "${merge(var.tags,map("Name", format("%s", var.name)), map("ModuleSource", var.module_source))}"
 }
 
 resource "aws_route" "public_internet_gateway" {
@@ -50,10 +41,7 @@ resource "aws_subnet" "public" {
   availability_zone       = "${element(var.availability_zones, count.index)}"
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
 
-  tags {
-    Name         = "${format("%s-public-%s", var.name, element(var.availability_zones, count.index))}"
-    ModuleSource = "${var.module_source}"
-  }
+  tags = "${merge(var.tags,map("Name", format("%s", var.name)), map("ModuleSource", var.module_source))}"
 }
 
 resource "aws_route_table_association" "public" {
